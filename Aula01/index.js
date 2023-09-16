@@ -1,11 +1,10 @@
 const http = require("http");
 const fs = require("fs");
-const url = require("url");
+const createLink = require("./link_helper")
 require("dotenv").config();
 
 const server = http.createServer(function (req, res) {
   const diretorio = process.argv[2];
-
   fs.readdir(diretorio, (err, arquivos) => {
     if (err) {
       console.error("Erro ao ler a pasta:", err);
@@ -18,11 +17,12 @@ const server = http.createServer(function (req, res) {
     res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
     res.end(listaArquivos);
   });
-});
 
-function createLink(arquivo) {
-  return `<a href="/${arquivo}">${arquivo}</a><br>`;
-}
+  fs.readFile(req.url+, (err, conteudo) => {
+    if (err) throw new Error(err)
+
+  })
+});
 
 const PORT = process.env.PORT ?? 3333;
 server.listen(PORT, () => {
