@@ -24,7 +24,7 @@ app.get("/lorem/:paragraphs", (req, res) => {
     const loremIpsum = generateLoremIpsum(x);
     sendResponse(res, 200, { "Content-Type": "text/html" }, loremIpsum);
   } else {
-    sendResponse(res, 400, { "Content-Type": "text/html" }, "Número inválido");
+    sendResponse(res, 400, { "Content-Type": "text/html" }, "Invalid number");
   }
 });
 
