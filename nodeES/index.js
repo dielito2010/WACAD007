@@ -1,40 +1,26 @@
 import http from "http";
-import fs from "fs";
-import { createLink } from "./link_helper.js";
 import dotenv from "dotenv";
+import * as utils from "./utils.js";
 dotenv.config();
 
 const server = http.createServer((req, res) => {
   const dir = process.argv[2];
   if (dir !== "dir") {
-    res.writeHead(401, { "Content-Type": "text/html;charset=utf-8" });
-    res.end("Folder not found");
+    utils.sendResponse(res, 401, "text/html;charset=utf-8", "Folder not found");
+    return;
   }
+
   if (req.url === "/") {
-    res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
-    fs.readdir(dir, (err, files) => {
-      if (err) throw new Error(err);
-      files.forEach((file) => res.write(`${createLink(file)}<br>`));
-      res.end();
-    });
+    utils.handleHomePage(dir, res);
+  } else if (req.url === "/favicon.ico") {
+    utils.sendResponse(res, 404, "text/html;charset=utf-8", "File not found");
   } else {
-    if (req.url === "/favicon.ico") {
-      res.writeHead(404);
-      res.end();
-      return;
-    }
-    const path = "." + req.url
-    fs.readFile(path, (err, data) => {
-      if (err) throw new Error(err);
-      res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
-      res.write(`<a href="/">Voltar</a><br><br>`);
-      res.write(data);
-      res.end();
-    });
+    const filePath = "." + req.url;
+    utils.handleFileRequest(filePath, res);
   }
 });
 
-const PORT = process.env.PORT ?? 3333;
+const PORT = process.env.PORT || 3333;
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
