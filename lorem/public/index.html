@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Gerador de Lorem Ipsum</title>
+  </head>
+  <body>
+    <h1>GERADOR DE LOREM IPSUM!</h1>
+    <form id="loremForm">
+      <label for="numberOfParagraphs">Parágrafos:</label>
+      <input
+        type="number"
+        id="numberOfParagraphs"
+        name="numberOfParagraphs"
+        min="1"
+        value="1"
+      />
+      <button type="submit">Gerar</button>
+    </form>
+    <div id="result"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>
