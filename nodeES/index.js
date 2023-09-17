@@ -18,7 +18,19 @@ const server = http.createServer((req, res) => {
       res.end();
     });
   } else {
-    
+    if (req.url === "/favicon.ico") {
+      res.writeHead(404);
+      res.end();
+      return;
+    }
+    const path = "." + req.url
+    fs.readFile(path, (err, data) => {
+      if (err) throw new Error(err);
+      res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+      res.write(`<a href="/">Voltar</a><br><br>`);
+      res.write(data);
+      res.end();
+    });
   }
 });
 

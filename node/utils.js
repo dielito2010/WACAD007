@@ -1,4 +1,4 @@
 function createLink(file) {
-  return `<a href="/${file}">${file}</a>`;
+  return `<a href="dir/${file}">${file}</a>`;
 }
 module.exports = createLink
